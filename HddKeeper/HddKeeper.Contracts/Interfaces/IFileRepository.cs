@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HddKeeper.Contracts.Interfaces
 {
-    public interface IDriveController
+    public interface IFileRepository
     {
         void CreateFakeFileInDirectory(string dir);
         void DeleteFakeFileInDirectory(string dir);

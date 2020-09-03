@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using HddKeeper.BusinessLogic;
 using HddKeeper.Contracts.Interfaces;
-using Microsoft.Extensions.Configuration;
 
 namespace HddKeeper.ConsoleApp
 {
@@ -22,7 +21,9 @@ namespace HddKeeper.ConsoleApp
 
             services.AddTransient<App>();
 
-            services.AddScoped<IDriveController, FileRepository>();
+            services.AddScoped<IFileRepository, FileRepository>();
+
+            services.AddScoped<IFileSimulator, FileSimulator>();
 
             return services;
         }

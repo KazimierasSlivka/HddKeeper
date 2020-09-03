@@ -4,7 +4,7 @@ using HddKeeper.Contracts.Interfaces;
 
 namespace HddKeeper.BusinessLogic
 {
-    public class DriveController : IDriveController
+    public class FileRepository : IFileRepository
     {
         private readonly string _tempFileName = "temp.txt";
         public void CreateFakeFileInDirectory(string dir)
@@ -14,7 +14,7 @@ namespace HddKeeper.BusinessLogic
 
         public void DeleteFakeFileInDirectory(string dir)
         {
-                File.Delete(dir + _tempFileName);
+            File.Delete(dir + _tempFileName);
         }
     }
 }

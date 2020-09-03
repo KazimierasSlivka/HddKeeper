@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Timers;
 using HddKeeper.Contracts.Interfaces;
 using HddKeeper.Contracts.Models;
 using Microsoft.Extensions.Configuration;
@@ -10,48 +9,20 @@ namespace HddKeeper.ConsoleApp
 {
     public class App
     {
-        private readonly IFileRepository DriveController;
-        private static Timer _timer;
-        public App(IFileRepository DriveController)
+        private readonly IFileSimulator _fileSimulator;
+        public App(IFileSimulator fileSimulator)
         {
-            this.DriveController = DriveController;
+            _fileSimulator = fileSimulator;
         }
 
         public void Run()
         {
-            var config = ReadAppSettingsJson();
-
-            if (config != null)
-            {
-                if (config.RefreshTime <= 0)
-                    Console.WriteLine("Refresh time must be greater than 0");
-
-            }
-            else
-                Console.Write("Application settings error");
-
-        }
-
-        private void SimulateTempFile(Config config)
-        {
-            _timer = new Timer();
-            _timer.Interval = config.RefreshTime;
-
-            _timer.Elapsed += (object source, ElapsedEventArgs e) =>
-            {
-                DriveController.CreateFakeFileInDirectory("D:/");
-                DriveController.DeleteFakeFileInDirectory("D:/");
-            };
-
-            _timer.AutoReset = true;
-
-            _timer.Enabled = true;
+            OnSuccessConfigRead(ReadAppSettingsJson());
         }
 
         private void OnSuccessConfigRead(Config config)
         {
-            SimulateTempFile(config);
-            Console.WriteLine();
+            _fileSimulator.TempFileManipulation(config);
             Console.WriteLine("Press the Enter key to exit the program at any time... ");
             Console.ReadLine();
         }
