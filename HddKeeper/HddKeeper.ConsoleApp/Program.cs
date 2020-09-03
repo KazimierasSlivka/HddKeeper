@@ -22,7 +22,7 @@ namespace HddKeeper.ConsoleApp
 
             services.AddTransient<App>();
 
-            services.AddScoped<IDriveController, DriveController>();
+            services.AddScoped<IDriveController, FileRepository>();
 
             return services;
         }

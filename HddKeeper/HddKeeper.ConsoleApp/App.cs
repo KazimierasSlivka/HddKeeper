@@ -10,23 +10,32 @@ namespace HddKeeper.ConsoleApp
 {
     public class App
     {
-        private readonly IDriveController DriveController;
+        private readonly IFileRepository DriveController;
         private static Timer _timer;
-        public App(IDriveController DriveController)
+        public App(IFileRepository DriveController)
         {
             this.DriveController = DriveController;
         }
 
         public void Run()
         {
-            ReadAppSettingsJson();
+            var config = ReadAppSettingsJson();
+
+            if (config != null)
+            {
+                if (config.RefreshTime <= 0)
+                    Console.WriteLine("Refresh time must be greater than 0");
+
+            }
+            else
+                Console.Write("Application settings error");
 
         }
 
-        private void SimulateTempFile()
+        private void SimulateTempFile(Config config)
         {
             _timer = new Timer();
-            _timer.Interval = 10000;
+            _timer.Interval = config.RefreshTime;
 
             _timer.Elapsed += (object source, ElapsedEventArgs e) =>
             {
@@ -39,9 +48,9 @@ namespace HddKeeper.ConsoleApp
             _timer.Enabled = true;
         }
 
-        private void OnSuccessConfigRead()
+        private void OnSuccessConfigRead(Config config)
         {
-            SimulateTempFile();
+            SimulateTempFile(config);
             Console.WriteLine();
             Console.WriteLine("Press the Enter key to exit the program at any time... ");
             Console.ReadLine();
