@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using HddKeeper.BusinessLogic;
 using HddKeeper.Contracts.Interfaces;
+using Microsoft.Extensions.Configuration;
 
 namespace HddKeeper.ConsoleApp
 {
