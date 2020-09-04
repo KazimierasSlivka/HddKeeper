@@ -7,14 +7,17 @@ namespace HddKeeper.BusinessLogic
     public class FileSimulator : IFileSimulator
     {
         private readonly IFileRepository _fileRepository;
+        private readonly IConfigurationReader _configurationReader;
         private static Timer _timer;
-        public FileSimulator(IFileRepository fileRepository)
+        public FileSimulator(IFileRepository fileRepository, IConfigurationReader configurationReader)
         {
             _fileRepository = fileRepository;
+            _configurationReader = configurationReader;
         }
 
-        public void TempFileManipulation(Config config)
+        public void TempFileManipulation()
         {
+            var config = _configurationReader.ReadConfigurationsJson();
             _timer = new Timer();
             _timer.Interval = config.RefreshTime;
 

@@ -2,8 +2,8 @@
 
 namespace HddKeeper.Contracts.Interfaces
 {
-    public interface IFileSimulator
+    public interface IConfigurationReader
     {
-        void TempFileManipulation();
+        Config ReadConfigurationsJson();
     }
 }

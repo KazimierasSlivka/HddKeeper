@@ -25,6 +25,8 @@ namespace HddKeeper.ConsoleApp
 
             services.AddScoped<IFileSimulator, FileSimulator>();
 
+            services.AddScoped<IConfigurationReader, ConfigurationReader>();
+
             return services;
         }
     }
